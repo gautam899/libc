@@ -21,6 +21,7 @@ const ALLOWED_CFGS: &[&str] = &[
     // Corresponds to `__USE_TIME_BITS64` in UAPI
     "linux_time_bits64",
     "musl_v1_2_3",
+    "vxworks_version_old",
 ];
 
 // Extra values to allow for check-cfg.
@@ -82,6 +83,12 @@ fn main() {
     match emcc_version_code() {
         Some(v) if (v < 30142) => set_cfg("emscripten_old_stat_abi"),
         // Non-Emscripten or version >= 3.1.42.
+        _ => (),
+    }
+
+    match vxworks_version_code() {
+        Some(v) if (v < 2512) => set_cfg("vxworks_version_old"),
+        // VxWorks version >= 25.12
         _ => (),
     }
 
@@ -272,6 +279,17 @@ fn emcc_version_code() -> Option<u64> {
     let patch = pieces.next().and_then(|x| x.parse().ok()).unwrap_or(0);
 
     Some(major * 10000 + minor * 100 + patch)
+}
+
+fn vxworks_version_code() -> Option<u64> {
+    let version = env::var("WIND_RELEASE_ID").ok()?;
+
+    let mut pieces = version.trim().split(['.']);
+
+    let major: u64 = pieces.next().and_then(|x| x.parse().ok()).unwrap_or(0);
+    let minor: u64 = pieces.next().and_then(|x| x.parse().ok()).unwrap_or(0);
+
+    Some(major * 100 + minor)
 }
 
 fn set_cfg(cfg: &str) {
