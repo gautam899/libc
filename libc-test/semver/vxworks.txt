@@ -141,10 +141,13 @@ F_GETFD
 F_GETFL
 F_GETLK
 F_OK
+F_RDLCK
 F_SETFD
 F_SETFL
 F_SETLK
 F_SETLKW
+F_UNLCK
+F_WRLCK
 HUPCL
 ICANON
 ICRNL
@@ -241,12 +244,15 @@ ONLCR
 OPOST
 O_ACCMODE
 O_APPEND
+O_ASYNC
 O_CLOEXEC
 O_CREAT
+O_DSYNC
 O_EXCL
 O_NONBLOCK
 O_RDONLY
 O_RDWR
+O_SYNC
 O_TRUNC
 O_WRONLY
 PARENB
@@ -468,6 +474,7 @@ connect
 creat
 dev_t
 dirent
+dirfd
 dladdr
 dlclose
 dlerror
@@ -482,7 +489,9 @@ fchown
 fchownat
 fclose
 fcntl
+fdatasync
 fdopen
+fdopendir
 feof
 ferror
 fflush
@@ -506,6 +515,7 @@ fscanf
 fseek
 fseeko
 fsetpos
+fsid_t
 fstat
 fsync
 ftell
@@ -586,6 +596,7 @@ memcpy
 memmove
 memset
 mkdir
+mkdirat
 mkdtemp
 mkfifo
 mkstemp
@@ -604,6 +615,7 @@ nfds_t
 nlink_t
 off_t
 open
+openat
 opendir
 openlog
 pathconf
@@ -676,6 +688,7 @@ raise
 read
 readdir
 readlink
+readlinkat
 readv
 realloc
 realpath
@@ -736,6 +749,7 @@ sprintf
 sscanf
 ssize_t
 stat
+statfs
 strcat
 strchr
 strcmp
